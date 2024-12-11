@@ -1,0 +1,25 @@
+def amdahl_law(speedup, parallel_fraction):
+    """
+    Amdahl Yasası formülü:
+    Toplam hızlanma = 1 / ((1 - paralel_bölüm) + (paralel_bölüm / hızlanma))
+
+    :param speedup: Paralel işleme ile elde edilecek hızlanma oranı
+    :param parallel_fraction: Programın paralel çalışabilen kısmı (0-1 arasında)
+    :return: Toplam hızlanma
+    """
+    if not (0 <= parallel_fraction <= 1):
+        raise ValueError("Paralel bölüm oranı 0 ile 1 arasında olmalıdır.")
+
+    total_speedup = 1 / ((1 - parallel_fraction) + (parallel_fraction / speedup))
+    return total_speedup
+
+if __name__ == "__main__":
+    print("Amdahl Yasası Hızlanma Hesaplayıcı")
+    try:
+        speedup = float(input("Paralel işlemci sayısına göre teorik hızlanma oranını girin: "))
+        parallel_fraction = float(input("Programın paralel çalışabilen kısmının oranını (0-1 arası) girin: "))
+
+        total_speedup = amdahl_law(speedup, parallel_fraction)
+        print(f"Toplam hızlanma: {total_speedup:.2f} kat")
+    except ValueError as e:
+        print(f"Hata: {e}")
